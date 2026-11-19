@@ -2,7 +2,7 @@
 
 - Papel: consultor externo. Tarefas pontuais.
 - Banco: `terraanalytics` (PostgreSQL, servidor da empresa). Ver `../infra/bancos.md`.
-- Um diretório por projeto: `terraanalytics/<projeto>/`.
+- Um diretório por projeto: `terraanalytics/<contratante-ou-contexto>/<projeto>/`.
 
 ## Projetos
 <!-- - [Nome](nome/README.md) -->

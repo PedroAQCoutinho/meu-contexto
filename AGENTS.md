@@ -13,21 +13,24 @@ repo; trabalhar numa cópia velha causa conflito e decisões erradas.
   Contexto em `igpp/`.
 - Consultor externo da TerraAnalytics (tarefas mais pontuais). Contexto em `terraanalytics/`.
 
-## Convenção de contexto: `<Instituição> - [<Iniciativa> -] <Projeto>`
-A instituição é o guarda-chuva. Pode haver um nível intermediário (iniciativa/programa)
-com vários produtos/projetos dentro. Exemplos:
-- **iGPP - Caatinga** → `igpp/caatinga/`
+## Convenção de contexto: `<Instituição> - <Contratante/Contexto> - <Projeto>`
+Todo projeto tem **3 nomes**:
+1. **Instituição**: iGPP, TerraAnalytics ou outras que surgirem.
+2. **Contratante ou contexto** em que o projeto está inserido (financiador, programa, iniciativa).
+3. **Nome resumido** do projeto.
+
+Exemplos:
+- **iGPP - UK Pact - Caatinga** → `igpp/uk-pact/caatinga/`
 - **iGPP - Cartas da Terra - Who Owns** → `igpp/cartas-da-terra/who-owns/`
 
 Regras:
-- Cada nível tem um `README.md` (instituição usa `contexto.md`).
+- Cada nível tem um arquivo: `contexto.md` na instituição, `README.md` no contratante/contexto
+  e no projeto.
 - Nomes de pasta em minúsculas, sem acento, com hífen.
-- Project no Claude e no ChatGPT com o nome completo (ex.: `iGPP - Cartas da Terra - Who Owns`).
-- Ao trabalhar num projeto, leia de cima para baixo: `contexto.md` da instituição →
-  README da iniciativa (se houver) → README do projeto.
-- Nunca traga dados de um projeto para outro sem eu pedir. Projetos da mesma
-  iniciativa podem compartilhar o que está no README da iniciativa.
-- Não preciso de explicações introdutórias da minha área; vá direto ao ponto.
+- Project no Claude e no ChatGPT com o nome completo (ex.: `iGPP - UK Pact - Caatinga`).
+- Ao trabalhar num projeto, leia de cima para baixo: instituição → contratante/contexto → projeto.
+- Nunca traga dados de um projeto para outro sem eu pedir. Projetos do mesmo
+  contratante/contexto podem compartilhar o que está no README desse nível.
 
 ## Idioma e estilo
 - Responda em português (Brasil). Termos técnicos podem ficar em inglês.
@@ -80,7 +83,7 @@ commit+push antes de seguir. Nunca registre valores de segredos.
 - Código com comentários curtos; segredos via variáveis de ambiente.
 
 ## Ritual de projeto
-- Projeto novo: copie `_modelo-projeto/` para `<instituicao>/[<iniciativa>/]<projeto>/`,
+- Projeto novo: copie `_modelo-projeto/` para `<instituicao>/<contratante>/<projeto>/`,
   preencha e adicione o link no índice do nível acima; crie o Project com o nome completo.
 - Material bruto (PDFs, planilhas, dados) vai para o Google Drive; no repo ficam
   resumos em Markdown e links.
@@ -89,7 +92,7 @@ commit+push antes de seguir. Nunca registre valores de segredos.
 ---
 ## Resumo para custom instructions (ChatGPT)
 Sou pesquisador sênior no iGPP (instituto de pesquisa) e consultor da TerraAnalytics.
-Trabalho organizado como "<Instituição> - <Projeto>" (ex.: iGPP - Caatinga).
+Trabalho organizado como "<Instituição> - <Contratante/Contexto> - <Projeto>" (ex.: iGPP - UK Pact - Caatinga).
 Responda em PT-BR, direto, sem preâmbulo. Diga quando não tiver certeza; nunca
 invente referências. Nunca peça credenciais. Não misture dados das duas
 instituições. Pergunte antes de enviar mensagens a terceiros, apagar algo ou
