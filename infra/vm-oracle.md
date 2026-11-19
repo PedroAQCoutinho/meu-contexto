@@ -2,13 +2,16 @@
 
 Uso exclusivo: gerenciador de agentes (Hermes) e seus coletores.
 
+> Legenda: **confirmado** = informado por você ou verificado na VM;
+> *suposto* = inferido, ainda não verificado.
+
 | Item | Valor |
 |---|---|
-| IP público | 147.15.67.178 |
-| Usuário SSH | `opc` (imagem Oracle Linux → usar `dnf`) |
-| Chave | `~/oracle-vm-1.key` na máquina local (a chave NUNCA entra no repo) |
+| IP público | 147.15.67.178 (**confirmado**) |
+| Usuário SSH | `opc` (**confirmado**) — *suposto: imagem Oracle Linux, pois `opc` é o usuário padrão dela* |
+| Chave | `~/oracle-vm-1.key` na máquina local (**confirmado**; a chave NUNCA entra no repo) |
 | Shape | _a confirmar_ (A1 Flex até 2 OCPU / 12 GB no Always Free) |
-| Portas de entrada | só 22 (SSH). Telegram usa conexão de saída. |
+| Portas de entrada | *planejado: só 22 (SSH)*; estado atual não verificado. Telegram usa conexão de saída. |
 
 Acesso: `ssh -i ~/oracle-vm-1.key opc@147.15.67.178`
 
@@ -19,3 +22,9 @@ Host oracle
     User opc
     IdentityFile ~/oracle-vm-1.key
 ```
+
+## Verificar no primeiro acesso
+- [ ] Sistema operacional e versão (`cat /etc/os-release`)
+- [ ] CPU / memória / disco (`nproc`, `free -h`, `df -h`)
+- [ ] Docker instalado?
+- [ ] Portas abertas (firewall da VM + Security List da Oracle)
