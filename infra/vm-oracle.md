@@ -23,6 +23,16 @@ Host oracle
     IdentityFile ~/oracle/oracle-vm-1.key
 ```
 
+## Etapa 0 — tentativa 1 (2026-11-19): sem conexão
+- `ssh ... opc@147.15.67.178` → `Connection timed out` na porta 22. Nenhum comando rodou na VM.
+- Chave local OK (permissão 600).
+- Testes locais: ping 100% de perda (não conclusivo, ICMP bloqueado por padrão na OCI);
+  `nc` TCP 22 na VM → timeout; `nc` TCP 22 no github.com → sucesso
+  (a rede local **não** bloqueia saída na 22).
+- Console OCI (Pedro): instância **Running**, IP público **147.15.67.178** (**confirmado**).
+- Hipóteses restantes (*a verificar no console*): Security List/NSG sem entrada TCP 22;
+  subnet sem rota `0.0.0.0/0` → Internet Gateway (subnet privada).
+
 ## Verificar no primeiro acesso
 - [ ] Sistema operacional e versão (`cat /etc/os-release`)
 - [ ] CPU / memória / disco (`nproc`, `free -h`, `df -h`)
