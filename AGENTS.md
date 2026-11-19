@@ -1,5 +1,10 @@
 # Instruções gerais (válidas para Claude, ChatGPT e qualquer agente)
 
+## Primeiro passo, sempre
+**Antes de qualquer tarefa, rode `git pull` no `meu-contexto`** (ou peça a versão mais
+recente) para trabalhar com as regras e decisões atuais. Vários agentes editam este
+repo; trabalhar numa cópia velha causa conflito e decisões erradas.
+
 > Fonte única de verdade. Claude lê via `CLAUDE.md`; no ChatGPT, copie a seção
 > "Resumo para custom instructions" no fim deste arquivo.
 
