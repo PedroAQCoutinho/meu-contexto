@@ -14,7 +14,7 @@
   (clone na VM + `git pull` agendado). Ele não escreve no repo.
 - 2026-11-19 — Backup (memória, perfis, configs sem segredos) no Google Drive:
   `AI-AGENTS/HERMES` (https://drive.google.com/drive/folders/1yvTfiZDsq8Zi-7xr_S0LEUvn9KcKz7R-).
-- 2026-11-19 — Bot do Telegram: nome **Saci** (usuário a definir, termina em `bot`).
+- 2026-11-19 — Bot do Telegram: nome **Saci**, usuário desejado `@saci_bot` (conferir disponibilidade; reservas: `saci_pedro_bot`, `saci_radar_bot`).
 - Pendente (sem pressa): provedor/modelo de IA e teto de gasto. Candidato: DeepSeek.
 
 ## Recursos (conferir no console)
