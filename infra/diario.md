@@ -47,3 +47,22 @@ Somente leitura (`docker ps/volume/network/images/stats/inspect`, `systemctl`, `
   `~/.agentes-runner/orgs/<id>/` = **runner do agentes.chat** rodando (`agentes-runner app`, aberto pelo
   `agentes-desktop`), conectado a `https://agentes.147-15-67-178.sslip.io`, com executores `claude` e `codex`
   e conta `codex` salva. Ou seja: a instância antiga podia rodar comandos no notebook do Pedro.
+
+## 2026-11-19 — Etapas 2 e 3: backup e remoção da instalação antiga (Claude Code)
+- Backup: `pg_dump -Fc` com o banco no ar; depois `docker compose stop` e `tar` dos 3 volumes e de
+  `~/agentes-chat` (inclui `.env` e `owner-link.txt`). Arquivo único na VM:
+  `~/backups/agentes-chat-antigo-20261119T175843Z.tar.gz` (10 MB, `chmod 600`, pasta 700).
+  **Contém segredos: nunca vai para o repo nem para o Drive.**
+- Remoção: `docker compose down -v --rmi all --remove-orphans`; `rm -rf ~/agentes-chat /opt/agentes
+  /root/.bun /tmp/agentes-install.*`; `docker system prune -af --volumes`. Docker ficou sem containers,
+  volumes, imagens nem redes extras. Disco `/`: 14 GB → 9,1 GB usados.
+- `/swap-agentes` tratado na Etapa 5 (swap).
+- **Credenciais da instalação antiga, para trocar/revogar** (nomes, nunca valores):
+  - `AGENTES_SECRET`, `POSTGRES_PASSWORD`, `OWNER_CLAIM_SHA256` (+ token do `owner-link.txt`): morreram
+    com a instalação; a nova usa valores novos. Nada a fazer além de não reutilizar.
+  - Senha da conta owner criada na instância antiga (se reutilizada em outro lugar, trocar lá).
+  - Chaves de modelo de IA / conectores que tenham sido cadastrados no app antigo (ficavam cifradas no
+    banco): revogar no provedor (Anthropic/OpenAI/etc.), se houver.
+  - **Token do runner local** (`~/.agentes-runner/orgs/<id>/config.json`, campo `token`) e a sessão `codex`
+    em `accounts/codex`: o servidor que os aceitava não existe mais; desconectar/remover o runner no app
+    desktop e, se quiser, deslogar o Codex dali.
