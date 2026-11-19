@@ -1,9 +1,18 @@
 # "Cérebro" 24/7 na VM Oracle
 
+## Decisões
+- 2026-11-19 — A VM Oracle (Always Free) é dedicada ao software de gerenciamento
+  de agentes e seus coletores. Nada de bancos de trabalho nela (curupira e
+  terraanalytics ficam em outros servidores).
+- 2026-11-19 — Alertas para mim via **Telegram** (bot). WhatsApp fica para depois.
+- 2026-11-19 — Coletores ainda NÃO serão implementados; primeiro fechar a configuração inicial.
+
 ## Recursos (conferir no console)
 Always Free Ampere A1 foi reduzido em 2026 para ~2 OCPU / 12 GB no total.
-Suficiente para: Postgres + 3 coletores + orquestrador + notificador.
 Configurar alerta de orçamento em US$ 0,01 para evitar cobrança surpresa.
+
+## Software de gerenciamento de agentes
+- [ ] Escolher: agentes.chat / LibreChat / n8n / outro
 
 ## Arquitetura
 ```
@@ -18,7 +27,7 @@ Configurar alerta de orçamento em US$ 0,01 para evitar cobrança surpresa.
                  │ triagem com LLM (filtra pelo meu perfil, resume, nota) │
                  │          │                                              │
                  │          ▼                                              │
-                 │ notificador ──► WhatsApp / Telegram (só para mim)       │
+                 │ notificador ──► Telegram (só para mim)             │
                  │ envio a colegas ──► SEMPRE com minha aprovação         │
                  │ servidor MCP ──► Claude / ChatGPT consultam o cérebro  │
                  └─────────────────────────────────────────────────────────┘
@@ -35,9 +44,9 @@ Regras de coleta: preferir APIs/RSS/CSV oficiais; respeitar robots.txt e termos;
 intervalo educado entre requisições.
 
 ## Canal de mensagens
-- **Para mim:** WhatsApp Cloud API oficial (eu mando "oi" e abro a janela de 24h)
-  ou Telegram bot (grátis, sem burocracia).
-- **Para colegas:** só pela API oficial (templates aprovados) e com aprovação manual.
+- **Para mim (decidido):** bot do Telegram. Token do bot fica em `.env` na VM.
+- **Para colegas (futuro):** WhatsApp Cloud API oficial (templates aprovados),
+  sempre com aprovação manual.
 - **Evitar** bibliotecas não oficiais (Baileys / Evolution modo WhatsApp Web) no meu
   número pessoal: violam os termos e o ban costuma ser permanente.
 

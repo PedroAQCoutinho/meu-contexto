@@ -43,7 +43,8 @@ A regra depende da ação. Na dúvida, use a tabela; ela é atualizada com o tem
 ## Onde as coisas vivem
 - Contexto e decisões: este repo (`meu-contexto`).
 - Arquivos pesados e entregáveis: Google Drive (aqui só ficam os links).
-- Serviços 24/7: VM Oracle (`infra/cerebro-oracle.md`).
+- Agentes 24/7: VM Oracle, dedicada só a isso (`infra/cerebro-oracle.md`).
+- Alertas automáticos para mim: Telegram.
 - Máquina local: só terminal, nada armazenado.
 
 ## Padrões técnicos
