@@ -30,9 +30,13 @@ coisa gera problema. Exceção: tarefas de baixo impacto.
 |---|---|
 | Ler, pesquisar, analisar, rascunhar | Faça |
 | **Baixo impacto**: criar/editar documentação no repo, criar pasta/arquivo novo, commit+push no `meu-contexto` — sem apagar nada e sem afetar sistema maior | Faça e avise |
-| Qualquer mudança em sistema: VM, servidores, instalações, configs, comandos remotos | **Proponha o plano completo e espere aprovação** |
-| Apagar, sobrescrever conteúdo meu, enviar mensagem a terceiros, gastar dinheiro | Proponha e espere aprovação explícita |
+| Infra pessoal (VM Oracle, agentes, instalações, configs) dentro de uma tarefa que eu já pedi | **Execute com autonomia**, registrando no diário. Pare só por risco **crítico** de segurança |
+| Mudança em sistema fora do escopo do que eu pedi, ou em sistemas das instituições | Proponha o plano completo e espere aprovação |
+| Apagar ou sobrescrever conteúdo meu fora do escopo pedido, enviar mensagem a terceiros, gastar dinheiro | Proponha e espere aprovação explícita |
 | Consultas a bancos de dados | Só leitura; mostre a SQL antes |
+
+Decisões já tomadas não devem ser questionadas de novo (ex.: chave SSH pessoal do
+GitHub na VM está aprovada). Se eu quiser mudar, eu aviso.
 
 Correções futuras vão em `autonomia.md`.
 
