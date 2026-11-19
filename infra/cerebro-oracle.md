@@ -7,18 +7,29 @@
 - 2026-11-19 — Alertas para mim via **Telegram** (bot). WhatsApp fica para depois.
 - 2026-11-19 — Coletores ainda NÃO serão implementados; primeiro fechar a configuração inicial.
 
-- 2026-11-19 — Agente: **Hermes Agent** (Nous Research, MIT) com 2 perfis:
-  `pessoal` (conversa comigo no Telegram) e `radar` (coletas + triagem).
+- 2026-11-19 — ~~Agente: Hermes Agent com perfis `pessoal` e `radar`.~~ Revisto:
+- 2026-11-19 — Agente: **agentes.chat em piloto** (motivo: memória compartilhada entre
+  agentes, aprendizados "democratizados"). Piloto só com Radar + alertas para mim,
+  nada de iGPP/TerraAnalytics. Critério de saída: travamentos/perda de dados
+  frequentes → migrar para Hermes (plano B). Instalação antiga (Codex) será
+  inventariada e refeita do zero.
+- A confirmar na doc do agentes.chat: integração com Telegram, separação de memória
+  por contexto, consumo de RAM.
 - 2026-11-19 — Instalação via **Docker**; versão **fixada**, atualização só manual.
-- 2026-11-19 — Hermes lê o `meu-contexto` via **deploy key somente-leitura**
-  (clone na VM + `git pull` agendado). Ele não escreve no repo.
+- 2026-11-19 — Agentes leem o `meu-contexto` por clone na VM + `git pull` agendado.
+  Planejado: deploy key somente-leitura. **Realizado:** chave SSH *pessoal* (escrita em
+  todos os repos), por decisão do Pedro — ver `vm-oracle.md`. Rever antes de agentes
+  rodarem com acesso a essa chave.
 - 2026-11-19 — Backup (memória, perfis, configs sem segredos) no Google Drive:
-  `AI-AGENTS/HERMES` (https://drive.google.com/drive/folders/1yvTfiZDsq8Zi-7xr_S0LEUvn9KcKz7R-).
+  `AI-AGENTS/HERMES` (nome mantido) (https://drive.google.com/drive/folders/1yvTfiZDsq8Zi-7xr_S0LEUvn9KcKz7R-).
 - 2026-11-19 — Bot do Telegram: nome **Saci**, usuário desejado `@saci_bot` (conferir disponibilidade; reservas: `saci_pedro_bot`, `saci_radar_bot`).
 - Pendente (sem pressa): provedor/modelo de IA e teto de gasto. Candidato: DeepSeek.
 
 ## Recursos (conferir no console)
-Always Free Ampere A1 foi reduzido em 2026 para ~2 OCPU / 12 GB no total.
+**VM atual: VM.Standard.E2.1.Micro — 1 OCPU / ~1 GB RAM** (confirmado na Etapa 0).
+Pequena demais para agentes.chat (app + Postgres) e apertada até para o Hermes.
+Always Free também oferece Ampere A1 até 2 OCPU / 12 GB no total (ARM) — candidata a
+nova VM. Criação de A1 pode falhar por "Out of capacity" na região.
 Configurar alerta de orçamento em US$ 0,01 para evitar cobrança surpresa.
 
 
@@ -63,4 +74,4 @@ intervalo educado entre requisições.
 2. Triagem com LLM + resumo diário.
 3. Demais coletores.
 4. Servidor MCP do cérebro (Claude/ChatGPT consultam o histórico).
-5. Avaliar agentes.chat / n8n como camada de orquestração, se fizer falta.
+5. Reavaliar orquestração (agentes.chat × Hermes × n8n) ao fim do piloto.

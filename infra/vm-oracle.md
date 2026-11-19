@@ -1,6 +1,8 @@
 # VM Oracle (Always Free)
 
-Uso exclusivo: gerenciador de agentes (Hermes) e seus coletores.
+Uso previsto: gerenciador de agentes (agentes.chat em piloto; Hermes como plano B) e coletores.
+**Estado atual:** já existe uma instalação antiga do agentes.chat feita pelo Codex
+(provável origem dos containers em 80/443/3000), a inventariar e refazer.
 
 > Legenda: **confirmado** = informado por você ou verificado na VM;
 > *suposto* = inferido, ainda não verificado.

@@ -1,49 +1,53 @@
-# Fase 1 — VM Oracle + Hermes (sem modelo de IA)
+# Fase 1 — refazer a VM do zero, com calma
 
 Executor: Claude Code na máquina local do Pedro (chave em `~/oracle/oracle-vm-1.key`).
-Regra: **cada etapa é proposta com os comandos exatos, aprovada, executada e
-registrada** (resultado em `infra/vm-oracle.md` ou aqui). Nada de pular etapa.
+Regra: cada etapa é **proposta com os comandos exatos → aprovada → executada →
+registrada em `infra/diario.md` → commit+push**. Nada de pular etapa.
 
 Acesso: `ssh -i ~/oracle/oracle-vm-1.key opc@147.15.67.178`
 
-## Etapa 0 — Diagnóstico (somente leitura, nada é alterado)
-- `cat /etc/os-release` · `uname -m` · `nproc` · `free -h` · `df -h`
-- `docker --version` / `podman --version`
-- Firewall da VM: `sudo firewall-cmd --list-all` (Oracle Linux) ou `sudo iptables -S`
-- Portas escutando: `sudo ss -tlnp`
-- Saída: preencher a tabela de `infra/vm-oracle.md` (trocar *suposto* por **confirmado**).
+## ✅ Etapa 0 — Diagnóstico (feita)
+Ver `vm-oracle.md` e `diario.md`.
 
-## Etapa 1 — Sistema e Docker
-- Atualizar pacotes do sistema.
-- Instalar Docker Engine + plugin Compose pelo repositório oficial adequado ao SO
-  confirmado na etapa 0; habilitar serviço; adicionar `opc` ao grupo docker.
-- Teste: `docker run --rm hello-world`.
+## Etapa 0b — Inventário da instalação antiga (somente leitura)
+Na VM (usar `sudo docker`, pois `opc` não está no grupo docker):
+- `sudo docker ps -a` · `sudo docker volume ls` · `sudo docker network ls`
+- Localizar compose/projeto do agentes.chat: `sudo docker inspect` (labels
+  `com.docker.compose.project.working_dir`).
+- Arquivos `.env`: **listar só os NOMES das variáveis**, nunca valores
+  (ex.: `cut -d= -f1 .env`).
+- Serviços/agendamentos criados: `systemctl list-units --type=service --state=running`,
+  `crontab -l`, `sudo crontab -l`.
+- Quem acessa a VM: `cat ~/.ssh/authorized_keys | awk '{print $1, $3}'` (tipo + comentário).
+- O que responde em 80/443/3000 (ex.: `curl -sI http://127.0.0.1:3000`).
 
-## Etapa 2 — Segurança básica
-- Confirmar entrada só na porta 22 (firewall da VM e Security List da Oracle).
-- SSH apenas por chave (sem senha). Atualizações automáticas de segurança.
-- Alerta de orçamento na Oracle (US$ 0,01) — feito pelo Pedro no console.
+Na máquina local:
+- O que são `~/agentes` e `~/.agentes-runner` (listar, sem abrir segredos).
+- Há runner/processo rodando? `ps aux | grep -i agent`, `systemctl --user list-units`.
 
-## Etapa 3 — Bot Saci no Telegram
-- Pedro cria o bot no @BotFather (nome "Saci", usuário `saci_bot` ou reserva).
-- Token NUNCA no repo nem no chat: Pedro grava direto na VM em
-  `~/hermes/.env` com permissão 600.
+## Etapa 0c — Mapa de permissões
+Tabela: credencial (nome, não valor) → serviço → o que permite → onde está gravada.
+Inclui: chaves de modelo de IA, tokens GitHub, Telegram, Google, e qualquer acesso
+que o runner local tenha à máquina do Pedro.
 
-## Etapa 4 — Hermes Agent (Docker, versão fixada)
-- Ler a documentação oficial atual do Hermes e propor o `docker-compose.yml`
-  com versão fixa (sem `latest`).
-- Perfis: `pessoal` (Telegram) e `radar` (coletas; vazio por enquanto).
-- Sem modelo de IA configurado ainda (decisão pendente). Validar só que o
-  gateway sobe e reinicia sozinho após reboot.
+## Etapa D — Decisões do Pedro (antes de remover qualquer coisa)
+1. **Shape da VM**: continuar na E2.1.Micro (1 GB) ou criar uma **A1 Flex**
+   (2 OCPU / 12 GB, Always Free)? Recomendação: A1 — o agentes.chat não cabe em 1 GB.
+2. Salvar algo da instalação antiga? (config de agentes, memória) → backup no Drive.
+3. **Trocar todas as credenciais** do mapa 0c (feito pelo Pedro em cada serviço).
+4. Chave GitHub da VM: manter pessoal (escrita em tudo) ou trocar por deploy key
+   somente-leitura do `meu-contexto`?
+5. Remover a instalação antiga (deleção → aprovação explícita).
 
-## Etapa 5 — Hermes lê o `meu-contexto`
-- Gerar chave SSH na VM; Pedro adiciona como **Deploy key somente-leitura**
-  em GitHub → meu-contexto → Settings → Deploy keys.
-- Clonar na VM e agendar `git pull` periódico.
-
-## Etapa 6 — Backup
-- Backup de memória/perfis/configs (sem segredos) para o Google Drive
-  `AI-AGENTS/HERMES`. Ferramenta a propor (ex.: rclone). Pode ficar para a fase 2.
+## Etapa N — Instalação limpa (detalhar após Etapa D)
+- Sistema atualizado; `opc` no grupo docker; rpcbind desativado.
+- Firewall: só o necessário (22; 80/443 apenas se a interface web for exposta,
+  com HTTPS e autenticação).
+- agentes.chat pelo repositório oficial, **versão fixada**; ler a doc atual antes de propor.
+- Permissão mínima por agente; aprovações ligadas para ações sensíveis.
+- Configuração (sem segredos) versionada em `infra/agentes-chat/`.
+- Bot Saci (Pedro cria no @BotFather; token gravado direto na VM, permissão 600).
+- Piloto: Radar + alertas para o Pedro.
 
 ## Fora da fase 1
-Modelo de IA, coletores do Radar, MCP do cérebro, bancos de dados.
+Modelo de IA (candidato DeepSeek para o Radar), coletores, MCP do cérebro, bancos.

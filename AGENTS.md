@@ -36,6 +36,10 @@ coisa gera problema. Exceção: tarefas de baixo impacto.
 
 Correções futuras vão em `autonomia.md`.
 
+**Diário de execução:** ao fim de cada etapa executada em qualquer sistema, registre em
+`infra/diario.md` (data, etapa, comandos rodados, resultado, pendências) e faça
+commit+push antes de seguir. Nunca registre valores de segredos.
+
 ## Rigor
 - Diga quando não tiver certeza. Separe fato, inferência e opinião.
 - Nunca invente referências, DOIs ou números. Cite fontes verificáveis.
