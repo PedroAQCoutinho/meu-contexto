@@ -10,7 +10,7 @@
 - 2026-11-19 — ~~Agente: Hermes Agent com perfis `pessoal` e `radar`.~~ Revisto:
 - 2026-11-19 — Agente: **agentes.chat em piloto** (motivo: memória compartilhada entre
   agentes, aprendizados "democratizados"). Piloto só com Radar + alertas para mim,
-  nada de iGPP/TerraAnalytics. Critério de saída: travamentos/perda de dados
+  nada de iGPP/TerraAnalytics. Instalação antiga: remover e reinstalar limpo (aprovado). Critério de saída: travamentos/perda de dados
   frequentes → migrar para Hermes (plano B). Instalação antiga (Codex) será
   inventariada e refeita do zero.
 - A confirmar na doc do agentes.chat: integração com Telegram, separação de memória
@@ -18,8 +18,7 @@
 - 2026-11-19 — Instalação via **Docker**; versão **fixada**, atualização só manual.
 - 2026-11-19 — Agentes leem o `meu-contexto` por clone na VM + `git pull` agendado.
   Planejado: deploy key somente-leitura. **Realizado:** chave SSH *pessoal* (escrita em
-  todos os repos), por decisão do Pedro — ver `vm-oracle.md`. Rever antes de agentes
-  rodarem com acesso a essa chave.
+  todos os repos) — **aprovado pelo Pedro**; não requestionar.
 - 2026-11-19 — Backup (memória, perfis, configs sem segredos) no Google Drive:
   `AI-AGENTS/HERMES` (nome mantido) (https://drive.google.com/drive/folders/1yvTfiZDsq8Zi-7xr_S0LEUvn9KcKz7R-).
 - 2026-11-19 — Bot do Telegram: nome **Saci**, usuário desejado `@saci_bot` (conferir disponibilidade; reservas: `saci_pedro_bot`, `saci_radar_bot`).
