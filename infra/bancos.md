@@ -1,8 +1,11 @@
 # Acesso aos bancos sem expor credenciais
 
-Ambos são PostgreSQL. Padrão:
+Ambos são PostgreSQL, hospedados nos servidores de cada instituição.
+Acesso atual: usuário pessoal com senha (nunca registrar aqui).
 
-1. **Usuário somente-leitura** em cada banco (pedir ao DBA, ou criar se tiver permissão):
+Padrão proposto:
+
+1. **Usuário somente-leitura dedicado à IA**, separado do pessoal (pedir ao DBA, ou criar se tiver permissão):
    ```sql
    CREATE ROLE ia_leitura LOGIN PASSWORD '<definir fora do repo>';
    GRANT CONNECT ON DATABASE curupira TO ia_leitura;
