@@ -16,6 +16,9 @@ Produto da iniciativa [Cartas da Terra](../README.md).
 - **Dados:** Malha Fundiária Coleção 1 (raster/gpkg 2024–2026) + bases temáticas; tabelas do curupira e links do Drive: a definir.
 - **Entregáveis:** (data — relatório)
 
+## Modelo de análise
+- Protótipo (Claude Docs): https://claude.ai/artifact/EGxJfdMYYmUJL8v8jYxPXV — funil de 8 passos (variável sozinha → × fundiária → × declaratória → dinâmica conjunta), cubo de dados comum, métricas e produtos padrão (T1–T7, F1–F10). Piloto: uso da terra (MapBiomas Col. 11).
+
 ## Temas por edição
 | Edição | Temas | Status |
 |---|---|---|
@@ -25,6 +28,7 @@ Produto da iniciativa [Cartas da Terra](../README.md).
 <!-- AAAA-MM-DD — decisão — por quê -->
 
 ## Status
+- 2026-11-19 — Protótipo do modelo de análise criado; 8 decisões em aberto listadas no doc (pareamento de anos, raster × vetor, malha fixa da série longa...). Tarefa da semana de 23/11: estruturar o modelo.
 - 2026-11-19 — PDFs dos 2 papers lidos e resumidos (confirmados como a linha de base do Who Owns).
 - 2026-11-19 — Contexto do site Cartas da Terra e da nota técnica da malha (Coleção 1) incorporado; histórico dos 2 papers registrado.
 - 2026-11-19 — Projeto criado. Contexto detalhado a ser importado (material do Pedro).
