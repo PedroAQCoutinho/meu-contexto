@@ -12,7 +12,7 @@ Uso exclusivo: gerenciador de agentes (Hermes) e seus coletores.
 | Chave | `~/oracle/oracle-vm-1.key` na máquina local (**confirmado**; a chave NUNCA entra no repo) |
 | SO | Oracle Linux Server 9.8, kernel 6.12.0 UEK (**confirmado**) |
 | Arquitetura / CPU / RAM | x86_64, 2 vCPU, 945 MiB RAM + 2,9 GiB swap (**confirmado**) |
-| Shape | *suposto: VM.Standard.E2.1.Micro* (AMD Always Free, 1 OCPU / 1 GB). **Não** é A1 Flex |
+| Shape | VM.Standard.E2.1.Micro, 1 OCPU / 1 GB (**confirmado** via metadados da instância). **Não** é A1 Flex |
 | Disco | `/` 30 GB (46% usado, 17 GB livres); `/var/oled` 15 GB (**confirmado**) |
 | Docker | 29.10.0 já instalado e **com containers rodando** (**confirmado**); Podman ausente |
 | Firewall da VM | firewalld ativo, zona `public` em `ens3`: serviços `ssh`, `http`, `https`, `dhcpv6-client` (**confirmado**) |
@@ -47,7 +47,8 @@ Achados que mudam o plano da fase 1:
 - **A VM não está vazia**: Docker já instalado, com containers publicando 80/443
   (443 também em UDP, típico de proxy reverso com HTTP/3) e um serviço em 127.0.0.1:3000.
   Origem desconhecida; contradiz o "uso exclusivo" acima.
-- Há uma segunda sessão de usuário (`/run/user/988`), *suposto: conta de serviço*.
+- Usuário 988 = `ocarun` (Oracle Cloud Agent Run Command), conta de serviço normal da OCI (**confirmado**).
+- `opc` não está no grupo `docker`: `docker ps` sem sudo dá *permission denied*.
 - rpcbind (111) escuta em 0.0.0.0; o firewalld bloqueia, mas é um serviço desnecessário.
 - `iptables -S` mostra só as regras da Oracle e do Docker; o firewalld usa nftables.
 
@@ -58,4 +59,10 @@ Achados que mudam o plano da fase 1:
 - [x] Portas abertas no firewall da VM
 - [ ] Security List da Oracle (regras além da TCP 22)
 - [ ] O que são os containers em 80/443/3000?
-- [ ] Confirmar o shape (metadados da instância ou console)
+- [x] Confirmar o shape: VM.Standard.E2.1.Micro
+
+## Acesso da VM ao GitHub (2026-11-19)
+- Chave `~/.ssh/id_ed25519_github` (ed25519) gerada na VM; privada nunca sai da VM.
+- Pública cadastrada por Pedro como **chave SSH pessoal** (escrita em todos os repos dele),
+  não como deploy key. Decisão do Pedro, ciente do alcance maior.
+- Pendente: `~/.ssh/config` na VM, teste `ssh -T git@github.com`, clone e identidade de commit.
