@@ -12,6 +12,7 @@ igpp/caatinga/            projeto iGPP - Caatinga
 terraanalytics/           contexto da TerraAnalytics + um diretório por projeto
 infra/bancos.md           acesso aos bancos (a definir)
 infra/cerebro-oracle.md   arquitetura dos agentes 24/7 na VM Oracle
+infra/vm-oracle.md        dados de acesso da VM (sem segredos)
 ```
 
 Regra de ouro: **nenhum segredo neste repo.** Ver `.gitignore`.

@@ -7,12 +7,19 @@
 - 2026-11-19 — Alertas para mim via **Telegram** (bot). WhatsApp fica para depois.
 - 2026-11-19 — Coletores ainda NÃO serão implementados; primeiro fechar a configuração inicial.
 
+- 2026-11-19 — Agente: **Hermes Agent** (Nous Research, MIT) com 2 perfis:
+  `pessoal` (conversa comigo no Telegram) e `radar` (coletas + triagem).
+- 2026-11-19 — Instalação via **Docker**; versão **fixada**, atualização só manual.
+- 2026-11-19 — Hermes lê o `meu-contexto` via **deploy key somente-leitura**
+  (clone na VM + `git pull` agendado). Ele não escreve no repo.
+- 2026-11-19 — Backup (memória, perfis, configs sem segredos) no Google Drive:
+  `AI-AGENTS/HERMES` (https://drive.google.com/drive/folders/1yvTfiZDsq8Zi-7xr_S0LEUvn9KcKz7R-).
+- Pendente: provedor/modelo de IA e teto de gasto.
+
 ## Recursos (conferir no console)
 Always Free Ampere A1 foi reduzido em 2026 para ~2 OCPU / 12 GB no total.
 Configurar alerta de orçamento em US$ 0,01 para evitar cobrança surpresa.
 
-## Software de gerenciamento de agentes
-- [ ] Escolher: agentes.chat / LibreChat / n8n / outro
 
 ## Arquitetura
 ```
