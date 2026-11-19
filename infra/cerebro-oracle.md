@@ -26,9 +26,9 @@
 
 ## Recursos (conferir no console)
 **VM atual: VM.Standard.E2.1.Micro — 1 OCPU / ~1 GB RAM** (confirmado na Etapa 0).
-Pequena demais para agentes.chat (app + Postgres) e apertada até para o Hermes.
-Always Free também oferece Ampere A1 até 2 OCPU / 12 GB no total (ARM) — candidata a
-nova VM. Criação de A1 pode falhar por "Out of capacity" na região.
+O agentes.chat **já rodou nela** (instalação antiga) → manter esta VM e otimizar memória
+(swap, limites por container, serviços desnecessários desligados). Se um dia faltar,
+Always Free oferece Ampere A1 (até 2 OCPU / 12 GB).
 Configurar alerta de orçamento em US$ 0,01 para evitar cobrança surpresa.
 
 
