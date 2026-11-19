@@ -13,13 +13,20 @@ repo; trabalhar numa cópia velha causa conflito e decisões erradas.
   Contexto em `igpp/`.
 - Consultor externo da TerraAnalytics (tarefas mais pontuais). Contexto em `terraanalytics/`.
 
-## Convenção de contexto: `<Instituição> - <Projeto>`
-Todo trabalho é identificado por instituição + projeto, ex.: **iGPP - Caatinga**.
-- Pasta no repo: `<instituicao>/<projeto>/README.md` (ex.: `igpp/caatinga/`).
-- Contexto comum da instituição: `<instituicao>/contexto.md`.
-- Project no Claude e no ChatGPT com o mesmo nome (`iGPP - Caatinga`).
-- Ao trabalhar num projeto, leia primeiro o `contexto.md` da instituição e
-  depois o README do projeto. Nunca traga dados de um projeto para outro sem eu pedir.
+## Convenção de contexto: `<Instituição> - [<Iniciativa> -] <Projeto>`
+A instituição é o guarda-chuva. Pode haver um nível intermediário (iniciativa/programa)
+com vários produtos/projetos dentro. Exemplos:
+- **iGPP - Caatinga** → `igpp/caatinga/`
+- **iGPP - Cartas da Terra - Who Owns** → `igpp/cartas-da-terra/who-owns/`
+
+Regras:
+- Cada nível tem um `README.md` (instituição usa `contexto.md`).
+- Nomes de pasta em minúsculas, sem acento, com hífen.
+- Project no Claude e no ChatGPT com o nome completo (ex.: `iGPP - Cartas da Terra - Who Owns`).
+- Ao trabalhar num projeto, leia de cima para baixo: `contexto.md` da instituição →
+  README da iniciativa (se houver) → README do projeto.
+- Nunca traga dados de um projeto para outro sem eu pedir. Projetos da mesma
+  iniciativa podem compartilhar o que está no README da iniciativa.
 - Não preciso de explicações introdutórias da minha área; vá direto ao ponto.
 
 ## Idioma e estilo
@@ -73,8 +80,10 @@ commit+push antes de seguir. Nunca registre valores de segredos.
 - Código com comentários curtos; segredos via variáveis de ambiente.
 
 ## Ritual de projeto
-- Projeto novo: copie `_modelo-projeto/` para `<instituicao>/<projeto>/` e preencha;
-  crie o Project `<Instituição> - <Projeto>` no Claude/ChatGPT.
+- Projeto novo: copie `_modelo-projeto/` para `<instituicao>/[<iniciativa>/]<projeto>/`,
+  preencha e adicione o link no índice do nível acima; crie o Project com o nome completo.
+- Material bruto (PDFs, planilhas, dados) vai para o Google Drive; no repo ficam
+  resumos em Markdown e links.
 - Ao fim de uma sessão relevante, atualize a seção "Status" e "Decisões".
 
 ---

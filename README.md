@@ -9,6 +9,8 @@ autonomia.md              quando perguntar vs. agir (aprendido com o tempo)
 _modelo-projeto/          modelo para novo projeto
 igpp/contexto.md          contexto comum do iGPP
 igpp/caatinga/            projeto iGPP - Caatinga
+igpp/cartas-da-terra/     iniciativa iGPP - Cartas da Terra
+  who-owns/               produto iGPP - Cartas da Terra - Who Owns
 terraanalytics/           contexto da TerraAnalytics + um diretório por projeto
 infra/bancos.md           acesso aos bancos (a definir)
 infra/cerebro-oracle.md   arquitetura dos agentes 24/7 na VM Oracle

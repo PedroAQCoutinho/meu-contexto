@@ -8,6 +8,8 @@
 
 ## Projetos
 - [Caatinga](caatinga/README.md)
+- **Cartas da Terra** (iniciativa) — [README](cartas-da-terra/README.md)
+  - [Who Owns](cartas-da-terra/who-owns/README.md)
 
 ## Pessoas-chave
 <!-- nome — papel — como prefere ser contatado -->
