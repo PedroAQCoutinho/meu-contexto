@@ -1,8 +1,11 @@
-# TerraAnalytics — contexto
+# TerraAnalytics — contexto comum
 
 - Papel: consultor externo. Tarefas pontuais.
-- Banco: `terraanalytics` (PostgreSQL). Acesso via gateway — ver `../infra/bancos.md`.
-  - [ ] Contrato permite acesso via VM pessoal / ferramentas de IA?
+- Banco: `terraanalytics` (PostgreSQL, servidor da empresa). Ver `../infra/bancos.md`.
+- Um diretório por projeto: `terraanalytics/<projeto>/`.
+
+## Projetos
+<!-- - [Nome](nome/README.md) -->
 - Dados da TerraAnalytics nunca se misturam com dados do Instituto.
 
 ## Contatos

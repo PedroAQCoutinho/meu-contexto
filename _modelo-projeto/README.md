@@ -1,10 +1,10 @@
-# <Nome do projeto>
+# <Instituição> - <Projeto>
 
 - **Objetivo:**
 - **Período:** início — fim
 - **Financiador / edital:**
 - **Pessoas:** (nome — papel)
-- **Dados:** tabelas/esquemas do curupira usados; links do Drive
+- **Dados:** tabelas/esquemas do banco da instituição; links do Drive
 - **Entregáveis:** (data — o quê)
 
 ## Decisões

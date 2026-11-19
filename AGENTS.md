@@ -4,9 +4,17 @@
 > "Resumo para custom instructions" no fim deste arquivo.
 
 ## Quem sou
-- Pesquisador sênior em um instituto de pesquisa (projetos longos, de meses).
-  Contexto em `instituto/`.
-- Consultor externo da TerraAnalytics (tarefas pontuais). Contexto em `terranalytics/`.
+- Pesquisador sênior no iGPP, instituto de pesquisa (projetos longos, de meses).
+  Contexto em `igpp/`.
+- Consultor externo da TerraAnalytics (tarefas mais pontuais). Contexto em `terraanalytics/`.
+
+## Convenção de contexto: `<Instituição> - <Projeto>`
+Todo trabalho é identificado por instituição + projeto, ex.: **iGPP - Caatinga**.
+- Pasta no repo: `<instituicao>/<projeto>/README.md` (ex.: `igpp/caatinga/`).
+- Contexto comum da instituição: `<instituicao>/contexto.md`.
+- Project no Claude e no ChatGPT com o mesmo nome (`iGPP - Caatinga`).
+- Ao trabalhar num projeto, leia primeiro o `contexto.md` da instituição e
+  depois o README do projeto. Nunca traga dados de um projeto para outro sem eu pedir.
 - Não preciso de explicações introdutórias da minha área; vá direto ao ponto.
 
 ## Idioma e estilo
@@ -35,8 +43,7 @@ A regra depende da ação. Na dúvida, use a tabela; ela é atualizada com o tem
 ## Dados e segurança
 - Nunca peça nem registre credenciais, tokens ou senhas em chat ou neste repo.
   Segredos ficam em `.env` / cofre na VM e nunca são versionados.
-- Bancos (`curupira`, `terraanalytics`): acesso apenas via usuário somente-leitura
-  e gateway MCP. Ver `infra/bancos.md`.
+- Bancos (`curupira`, `terraanalytics`): ver `infra/bancos.md` (a definir).
 - Nunca misture dados do Instituto com dados da TerraAnalytics.
 - Anonimize dados pessoais antes de sair do banco.
 
@@ -52,13 +59,14 @@ A regra depende da ação. Na dúvida, use a tabela; ela é atualizada com o tem
 - Código com comentários curtos; segredos via variáveis de ambiente.
 
 ## Ritual de projeto
-- Projeto novo do Instituto: copie `instituto/projetos/_modelo/` e preencha.
-- Tarefa nova da TerraAnalytics: copie `terranalytics/tarefas/_modelo.md`.
+- Projeto novo: copie `_modelo-projeto/` para `<instituicao>/<projeto>/` e preencha;
+  crie o Project `<Instituição> - <Projeto>` no Claude/ChatGPT.
 - Ao fim de uma sessão relevante, atualize a seção "Status" e "Decisões".
 
 ---
 ## Resumo para custom instructions (ChatGPT)
-Sou pesquisador sênior (instituto de pesquisa) e consultor da TerraAnalytics.
+Sou pesquisador sênior no iGPP (instituto de pesquisa) e consultor da TerraAnalytics.
+Trabalho organizado como "<Instituição> - <Projeto>" (ex.: iGPP - Caatinga).
 Responda em PT-BR, direto, sem preâmbulo. Diga quando não tiver certeza; nunca
 invente referências. Nunca peça credenciais. Não misture dados das duas
 instituições. Pergunte antes de enviar mensagens a terceiros, apagar algo ou
