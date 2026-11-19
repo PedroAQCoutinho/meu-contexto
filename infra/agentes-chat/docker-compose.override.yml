@@ -1,0 +1,40 @@
+# Ajustes para a VM E2.1.Micro (~1 GB RAM). Mesclado automaticamente ao docker-compose.yml
+# oficial (v0.1.8, não editar aquele). Sem segredos aqui.
+services:
+  postgres:
+    # Postgres enxuto: poucas conexões, buffers pequenos, sem paralelismo nem JIT.
+    command:
+      - postgres
+      - -c
+      - shared_buffers=32MB
+      - -c
+      - effective_cache_size=128MB
+      - -c
+      - work_mem=2MB
+      - -c
+      - maintenance_work_mem=16MB
+      - -c
+      - max_connections=15
+      - -c
+      - max_worker_processes=2
+      - -c
+      - max_parallel_workers=0
+      - -c
+      - max_parallel_workers_per_gather=0
+      - -c
+      - max_parallel_maintenance_workers=0
+      - -c
+      - autovacuum_max_workers=1
+      - -c
+      - jit=off
+      - -c
+      - huge_pages=off
+    shm_size: 64m
+    mem_limit: 160m
+    memswap_limit: 320m
+  agentes:
+    # mem_limit vem de AGENTES_MEMORY no .env (512m); permite usar swap até 1 GB.
+    memswap_limit: 1g
+  caddy:
+    mem_limit: 64m
+    memswap_limit: 128m

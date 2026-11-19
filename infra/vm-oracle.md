@@ -1,8 +1,8 @@
 # VM Oracle (Always Free)
 
 Uso previsto: gerenciador de agentes (agentes.chat em piloto; Hermes como plano B) e coletores.
-**Estado atual:** já existe uma instalação antiga do agentes.chat feita pelo Codex
-(provável origem dos containers em 80/443/3000), a inventariar e refazer.
+**Estado atual (2026-11-19):** instalação antiga (Codex) removida; **agentes.chat v0.1.8 limpo no ar** em
+https://147-15-67-178.sslip.io. Configuração em `agentes-chat/`.
 
 > Legenda: **confirmado** = informado por você ou verificado na VM;
 > *suposto* = inferido, ainda não verificado.
@@ -13,12 +13,12 @@ Uso previsto: gerenciador de agentes (agentes.chat em piloto; Hermes como plano 
 | Usuário SSH | `opc` (**confirmado**) |
 | Chave | `~/oracle/oracle-vm-1.key` na máquina local (**confirmado**; a chave NUNCA entra no repo) |
 | SO | Oracle Linux Server 9.8, kernel 6.12.0 UEK (**confirmado**) |
-| Arquitetura / CPU / RAM | x86_64, 2 vCPU, 945 MiB RAM + 2,9 GiB swap (**confirmado**) |
+| Arquitetura / CPU / RAM | x86_64, 2 vCPU, 945 MiB RAM + 2 GiB swap (`/.swapfile`, swappiness 20) (**confirmado**) |
 | Shape | VM.Standard.E2.1.Micro, 1 OCPU / 1 GB (**confirmado** via metadados da instância). **Não** é A1 Flex |
 | Disco | `/` 30 GB (46% usado, 17 GB livres); `/var/oled` 15 GB (**confirmado**) |
-| Docker | 29.10.0 já instalado e **com containers rodando** (**confirmado**); Podman ausente |
-| Firewall da VM | firewalld ativo, zona `public` em `ens3`: serviços `ssh`, `http`, `https`, `dhcpv6-client` (**confirmado**) |
-| Portas escutando | 22 (sshd), 80 e 443 (docker-proxy), 111 (rpcbind) em 0.0.0.0; 3000 (docker) e PCP 4330/44321 só em localhost (**confirmado**) |
+| Docker | 29.10.0; `opc` no grupo docker; logs limitados em `/etc/docker/daemon.json` (**confirmado**) |
+| Firewall da VM | firewalld, zona `public`: só `ssh`, `http`, `https` (dhcpv6-client removido em 2026-11-19; VM sem IPv6 global) |
+| Portas escutando | 22 (sshd), 80/443 (Caddy) públicas; 3000 (app) só em localhost. rpcbind e PCP desligados (**confirmado** 2026-11-19) |
 | Security List OCI | entrada TCP 22 existe (Pedro, console). Demais regras: *a verificar* |
 
 Acesso: `ssh -i ~/oracle/oracle-vm-1.key opc@147.15.67.178`
@@ -60,7 +60,7 @@ Achados que mudam o plano da fase 1:
 - [x] Docker instalado? Sim, 29.10.0, com containers ativos
 - [x] Portas abertas no firewall da VM
 - [ ] Security List da Oracle (regras além da TCP 22)
-- [ ] O que são os containers em 80/443/3000?
+- [x] O que são os containers em 80/443/3000? agentes.chat antigo (Codex) — removido em 2026-11-19
 - [x] Confirmar o shape: VM.Standard.E2.1.Micro
 
 ## Acesso da VM ao GitHub (2026-11-19)
@@ -68,3 +68,13 @@ Achados que mudam o plano da fase 1:
 - Pública cadastrada por Pedro como **chave SSH pessoal** (escrita em todos os repos dele),
   não como deploy key. Decisão do Pedro, ciente do alcance maior.
 - Pendente: `~/.ssh/config` na VM, teste `ssh -T git@github.com`, clone e identidade de commit.
+
+## Serviços desligados (2026-11-19, economia de RAM)
+rpcbind (mascarado), PCP (pmcd, pmie, pmie_farm, pmlogger, pmlogger_farm e timers), libstoragemgmt,
+gssproxy, dtprobed, atd. Mantidos: iscsid (segurança do boot na OCI), tuned, oracle-cloud-agent
+(~85 MiB RSS + ~145 MiB swap; desligar é a próxima economia possível, perde Run Command/métricas do console).
+
+## Segredos na VM (nunca no repo)
+- `~/agentes-chat/.env` (600) — segredos do agentes.chat.
+- `~/.agentes-segredos/owner-senha` (600) — senha inicial do owner; **apagar depois de trocar a senha**.
+- `~/backups/agentes-chat-antigo-20261119T175843Z.tar.gz` (600) — backup da instalação antiga.

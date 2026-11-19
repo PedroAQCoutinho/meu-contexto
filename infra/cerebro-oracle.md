@@ -13,6 +13,9 @@
   nada de iGPP/TerraAnalytics. Instalação antiga: remover e reinstalar limpo (aprovado). Critério de saída: travamentos/perda de dados
   frequentes → migrar para Hermes (plano B). Instalação antiga (Codex) será
   inventariada e refeita do zero.
+- 2026-11-19 — **Reinstalação feita**: agentes.chat **v0.1.8** (imagem fixada por digest) na E2.1.Micro,
+  público em https://147-15-67-178.sslip.io (Caddy + Let's Encrypt), cadastro fechado, owner = Pedro,
+  telemetria desligada, sem runner no servidor. Config em `infra/agentes-chat/`.
 - A confirmar na doc do agentes.chat: integração com Telegram, separação de memória
   por contexto, consumo de RAM.
 - 2026-11-19 — Instalação via **Docker**; versão **fixada**, atualização só manual.

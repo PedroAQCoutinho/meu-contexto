@@ -14,7 +14,7 @@ Uma entrada por etapa executada. Nunca registrar valores de segredos.
 - Gerada chave ed25519 na VM; pública cadastrada como chave SSH pessoal do Pedro.
 - Pendente: `~/.ssh/config` na VM, teste `ssh -T`, clone.
 
-## Etapa 1 — NÃO executada
+## Etapa 1 (antiga) — substituída pela reinstalação de 2026-11-19 (abaixo)
 - Suspensa até inventário da instalação antiga e decisão sobre o shape da VM.
 
 ## 2026-11-19 — Reinstalação do agentes.chat, Etapa 1: inventário (Claude Code)
@@ -66,3 +66,53 @@ Somente leitura (`docker ps/volume/network/images/stats/inspect`, `systemctl`, `
   - **Token do runner local** (`~/.agentes-runner/orgs/<id>/config.json`, campo `token`) e a sessão `codex`
     em `accounts/codex`: o servidor que os aceitava não existe mais; desconectar/remover o runner no app
     desktop e, se quiser, deslogar o Codex dali.
+
+## 2026-11-19 — Etapas 4 e 5: preparo da VM e economia de recursos (Claude Code)
+- `dnf -y upgrade` (308 pacotes, kernel UEK 6.12.0-208; reboot feito na Etapa 8).
+- `usermod -aG docker opc`. firewalld `public`: removido `dhcpv6-client` → só `ssh http https`.
+- Desligados (`systemctl disable --now`): rpcbind(+socket, mascarados), pmcd, pmie, pmie_farm, pmlogger,
+  pmlogger_farm e timers do PCP, libstoragemgmt, gssproxy, dtprobed, atd. Mantidos: iscsid, tuned, oracle-cloud-agent.
+- Swap: removidos `/swap-agentes` (2 GB) e `/.swapfile` antigo (945 MB); criado `/.swapfile` único de 2 GB.
+  `vm.swappiness=20` em `/etc/sysctl.d/99-agentes-memoria.conf`.
+- `/etc/docker/daemon.json`: logs json-file 10 MB × 3 para todos os containers.
+- Limites no `docker-compose.override.yml`: app 512 MiB (`AGENTES_MEMORY`, swap até 1 GiB), Postgres 160 MiB
+  (shared_buffers 32 MB, max_connections 15, sem paralelismo, jit off), Caddy 64 MiB. App: `DATABASE_POOL_MAX=5`,
+  4 jobs simultâneos. Sem speech/embeddings/tailscale/backup.
+
+## 2026-11-19 — Etapas 6 a 8: instalação v0.1.8, HTTPS e testes (Claude Code)
+- Lidos README, SELF_HOSTING.md e install.sh da tag v0.1.8. Instalação feita **à mão** (não pelo
+  `install.sh`/setup): o setup tenta transformar o servidor em "computador dos agentes" e baixa o compose do
+  `main`; à mão fica com compose da tag e imagem `0.1.8@sha256:42bc349f…`.
+- `.env` gerado na VM (segredos com `openssl rand`, 600). Subidos só postgres+app em localhost; owner criado
+  via `POST /api/auth/owner-claim` com token de uso único (descartado) e senha aleatória de 32 caracteres
+  (guardada só em `~/.agentes-segredos/owner-senha`, 600). Depois `compose up -d` com Caddy.
+- Certificado Let's Encrypt (emissor YE2) obtido por tls-alpn-01, válido até 2027-02-17.
+- Testes de fora (máquina local): `/api/health` 200; login 200; senha errada 401; sign-up → `SIGNUP_CLOSED`;
+  http → 308 https; porta 3000 fechada.
+- Reboot 1: app não voltou — esperado, eu tinha dado `compose stop agentes` antes (doc: container parado à mão
+  fica parado). Criado `agentes-chat.service` (systemd) que sobe no boot e para o app antes do banco.
+  Reboot 2 sem intervenção: os 3 containers voltaram healthy, HTTPS 200 de fora.
+- Sessões criadas nos testes revogadas: `DELETE FROM sessions;` (2 linhas).
+- **Consumo antes → depois** (com o agentes.chat rodando nos dois casos):
+
+  | | Antes (instalação antiga) | Depois |
+  |---|---|---|
+  | RAM usada | 629 / 945 MiB | 663 / 945 MiB (logo após boot) |
+  | Swap usado | 477 MiB de 2,9 GiB | 435 MiB de 2 GiB |
+  | App / Postgres / Caddy | 170 / 94 / 15 MiB | 216 / 68 / 11 MiB |
+  | Disco `/` | 14 GB | 14 GB (imagens 4,55 GB) |
+  | Serviços systemd rodando | 34 | 25 |
+
+  Leitura: os serviços desligados liberaram pouco (já estavam quase todos em swap); o ganho real é
+  previsibilidade (limites por container, logs limitados, um swap só). Maior consumidor restante fora do
+  agentes.chat: oracle-cloud-agent (~85 MiB RSS + ~145 MiB swap).
+
+## Pendências
+- Pedro: entrar, **trocar a senha** e apagar `~/.agentes-segredos/owner-senha` na VM.
+- Pedro: desconectar/remover o runner local (`agentes-runner` do app desktop) que apontava para a instância antiga.
+- Revogar chaves de IA/conectores cadastradas no app antigo, se houve.
+- Decidir se desliga o oracle-cloud-agent (≈230 MiB entre RAM e swap).
+- Backups do banco novo (perfil `backup` exige S3; alternativa: `pg_dump` em cron + cópia sem segredos).
+- Security List da OCI: conferir que só 22/80/443 estão abertas na entrada.
+- Monitor externo de `/api/health` (alerta no Telegram, quando o Saci existir).
+- Fora desta tarefa: modelo de IA, bot do Telegram, coletores do Radar.

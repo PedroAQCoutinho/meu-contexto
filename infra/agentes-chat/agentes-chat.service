@@ -1,0 +1,21 @@
+# /etc/systemd/system/agentes-chat.service
+# Sobe o agentes.chat no boot e, no desligamento, para o app antes do Postgres
+# (a doc recomenda: runs em andamento têm 20 s para terminar).
+[Unit]
+Description=agentes.chat (Docker Compose)
+Requires=docker.service
+After=docker.service network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+WorkingDirectory=/home/opc/agentes-chat
+ExecStart=/usr/bin/docker compose up -d --remove-orphans
+ExecStop=/usr/bin/docker compose stop -t 40 agentes
+ExecStop=/usr/bin/docker compose stop
+TimeoutStartSec=300
+TimeoutStopSec=120
+
+[Install]
+WantedBy=multi-user.target
