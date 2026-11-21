@@ -66,5 +66,6 @@ Radar de leilões de imóveis.
 5. Revisar os scores com os imóveis reais (`fatores` traz a evidência de cada ponto).
 
 ## Próximos passos
+- **v0.2** (prompt em [`prompts/2026-11-21-aprimoramento-v0.2.md`](prompts/2026-11-21-aprimoramento-v0.2.md)): painel lateral, fontes direto dos leiloeiros (por plataforma), filtros de leiloeiro e motivo do leilão, risco v1.1.
 - Versionar o protótipo (`radar-leiloes-santos.html`, `santos.json`) junto com o repo do radar.
 - Avaliar o risco v1 com os dados reais e ajustar pesos (ex.: "ocupação não informada" domina o ponto crítico).

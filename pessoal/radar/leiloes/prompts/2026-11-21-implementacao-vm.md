@@ -3,6 +3,7 @@
 - **Agente:** Claude Code (máquina local com SSH para a VM Oracle)
 - **Origem:** chat "Pessoal - Radar - Leilões" no claude.ai, 2026-11-21
 - **Status/Resultado:** executado em 2026-11-21 pelo Claude Code, **com desvios**: leilaoimovel bloqueado por Cloudflare, fonte trocada para Mega Leilões; protótipo não estava disponível (página reconstruída); repo GitHub não criado (sem token). Detalhes: `infra/diario.md` (entradas "Pessoal - Radar - Leilões" de 2026-11-21) e `pessoal/radar/leiloes/README.md`.
+- **Sucedido por:** [`2026-11-21-aprimoramento-v0.2.md`](2026-11-21-aprimoramento-v0.2.md)
 - **Arquivos do protótipo citados:** `radar-leiloes-santos.html` e `santos.json` (84 imóveis de Santos/SP, coletados em 2026-11-21) — ainda não versionados; estão no chat do claude.ai.
 
 Projeto: **Pessoal - Radar - Leilões**. Antes de qualquer coisa, rode `git pull` no `meu-contexto` e leia `AGENTS.md`, `autonomia.md`, `infra/vm-oracle.md`, `infra/cerebro-oracle.md`, `pessoal/radar/README.md` e `pessoal/radar/leiloes/README.md`. É infra pessoal que eu já pedi: execute com autonomia e pare só se houver risco crítico de segurança. Registre cada etapa em `infra/diario.md` (sem segredos) e faça commit+push.
