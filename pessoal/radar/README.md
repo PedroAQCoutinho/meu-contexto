@@ -13,6 +13,6 @@ Arquitetura geral e decisões de infra: `../../infra/cerebro-oracle.md`.
 ## Radares
 | Radar | Status |
 |---|---|
-| [Leilões de imóveis](leiloes/README.md) | em definição |
+| [Leilões de imóveis](leiloes/README.md) | no ar (v0.1, Mega Leilões, Santos/SP) |
 | Concursos públicos | a criar |
 | Oportunidades de projeto | a criar |

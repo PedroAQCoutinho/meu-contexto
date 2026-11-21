@@ -25,6 +25,8 @@
 - 2026-11-19 — Backup (memória, perfis, configs sem segredos) no Google Drive:
   `AI-AGENTS/HERMES` (nome mantido) (https://drive.google.com/drive/folders/1yvTfiZDsq8Zi-7xr_S0LEUvn9KcKz7R-).
 - 2026-11-19 — Bot do Telegram: nome **Saci**, usuário desejado `@saci_bot` (conferir disponibilidade; reservas: `saci_pedro_bot`, `saci_radar_bot`).
+- 2026-11-21 — Radar de Leilões usa **SQLite** próprio (não o Postgres "cerebro" do diagrama) por economia de RAM
+  e simplicidade; migrar se/quando o cérebro central existir.
 - Pendente (sem pressa): provedor/modelo de IA e teto de gasto. Candidato: DeepSeek.
 
 ## Recursos (conferir no console)

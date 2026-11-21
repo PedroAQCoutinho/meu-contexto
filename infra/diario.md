@@ -149,3 +149,32 @@ Somente leitura (`docker ps/volume/network/images/stats/inspect`, `systemctl`, `
   Sem OCI CLI local, não consegui reiniciar. Aguardando recuperação; se não voltar, **reboot pelo console OCI**.
   Lição: na E2.1.Micro, `dnf` precisa de `--setopt=install_weak_deps=False`, cache já pronto, e de preferência
   parar o agentes.chat antes (ou trocar para a A1 Flex).
+
+## 2026-11-21 — Pessoal - Radar - Leilões: implantação na VM (concluída)
+- **Recuperação:** a VM voltou sozinha ~11:44 BRT (sem reboot); o `dnf` terminou às 11:46 BRT
+  (`git-core-2.52.0`, `poppler-utils-21.01.0`). O agentes.chat ficou inacessível por ~1h20 durante o swap.
+- **Git na VM:** identidade global `Pedro Coutinho (VM Oracle)` / `PedroAQCoutinho@users.noreply.github.com`.
+  Clone do `meu-contexto` em `~/meu-contexto` (a máquina local não tem credencial de push; os pushes desta sessão
+  foram pela VM via `git bundle`). Houve um conflito com o commit 356d058 (registro de prompts), resolvido mantendo as duas versões.
+- **Código:** `~/pessoal-radar-leiloes` (git local, remote `git@github.com:PedroAQCoutinho/pessoal-radar-leiloes.git`).
+  `git ls-remote` → *Repository not found*: **repo ainda não existe** (criar exige token/gh, que não estão disponíveis).
+  9 testes de risco ok no Python 3.9.
+- **Coleta completa Santos/SP (Mega Leilões):** 5/5 ok, 0 erro, 53 s. **Pico de RSS do coletor: 39 MiB.**
+  RAM do sistema antes/depois: 688/687 MiB usados, swap 539/538 MiB (sem impacto mensurável).
+  Pela unit systemd (2ª coleta): 5 "igual", deduplicação ok.
+- **Página:** `https://radar.147-15-67-178.sslip.io`, Caddy do agentes.chat.
+  - Backup antes da mudança: `~/backups/docker-compose.override.yml.20261121T152844Z`.
+  - `~/agentes-chat/docker-compose.override.yml`: o serviço `caddy` ganhou `env_file` (`~/.agentes-segredos/radar-caddy.env`)
+    e 2 bind mounts `:ro,z` (SELinux enforcing): `site/` → `/srv/radar` e `deploy/radar.caddy` → `/etc/caddy/radar.caddy`.
+    `configs.caddyfile` = cópia do Caddyfile oficial v0.1.8 + `import /etc/caddy/radar.caddy`.
+  - `docker compose up -d caddy` (só o Caddy foi recriado). Certificado Let's Encrypt YE2 (http-01), válido até 2027-02-19.
+  - Segredos novos (600): `~/.agentes-segredos/radar-site-senha` (usuário/senha, `openssl rand`) e `radar-caddy.env` (hash bcrypt).
+  - Testes de fora: `/` e `/data.json` sem senha → 401; senha errada → 401; com senha → 200; http → 308;
+    `/api/health` do agentes.chat → 200. SRI do Leaflet 1.9.4 conferido.
+- **Agendamento:** `/etc/systemd/system/radar-leiloes.{service,timer}` (07:30 UTC ± 15 min, `Persistent=true`,
+  `MemoryMax=200M`, `Nice=10`, `ExecStartPost=-git push`). `journald`: `/etc/systemd/journald.conf.d/50-limite.conf`
+  (`SystemMaxUse=150M`, 30 dias). Journal atual: 8,7 MB.
+- **Reboot de teste** (`systemctl reboot`, 15:33 UTC): em ~2 min os 3 containers voltaram healthy, timer ativo,
+  site 401/200, health 200. RAM depois: 632 MiB, swap 374 MiB.
+- **Pendências:** Pedro criar o repo vazio (o push sai sozinho na próxima coleta); pegar a senha do site; versionar o protótipo.
+  Detalhes em `pessoal/radar/leiloes/README.md`.

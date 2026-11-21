@@ -16,6 +16,7 @@ https://147-15-67-178.sslip.io. Configuração em `agentes-chat/`.
 | Arquitetura / CPU / RAM | x86_64, 2 vCPU, 945 MiB RAM + 2 GiB swap (`/.swapfile`, swappiness 20) (**confirmado**) |
 | Shape | VM.Standard.E2.1.Micro, 1 OCPU / 1 GB (**confirmado** via metadados da instância). **Não** é A1 Flex |
 | Disco | `/` 30 GB (46% usado, 17 GB livres); `/var/oled` 15 GB (**confirmado**) |
+| Pacotes extras | `git-core` 2.52, `poppler-utils` 21.01 (2026-11-21). **`dnf` trava a VM por ~1h em swap**: rodar só com folga |
 | Docker | 29.10.0; `opc` no grupo docker; logs limitados em `/etc/docker/daemon.json` (**confirmado**) |
 | Firewall da VM | firewalld, zona `public`: só `ssh`, `http`, `https` (dhcpv6-client removido em 2026-11-19; VM sem IPv6 global) |
 | Portas escutando | 22 (sshd), 80/443 (Caddy) públicas; 3000 (app) só em localhost. rpcbind e PCP desligados (**confirmado** 2026-11-19) |
@@ -67,7 +68,8 @@ Achados que mudam o plano da fase 1:
 - Chave `~/.ssh/id_ed25519_github` (ed25519) gerada na VM; privada nunca sai da VM.
 - Pública cadastrada por Pedro como **chave SSH pessoal** (escrita em todos os repos dele),
   não como deploy key. Decisão do Pedro, ciente do alcance maior.
-- Pendente: `~/.ssh/config` na VM, teste `ssh -T git@github.com`, clone e identidade de commit.
+- Feito (2026-11-21): `~/.ssh/config` (github.com → `id_ed25519_github`), known_hosts com fingerprint ED25519 oficial,
+  `ssh -T` ok, identidade `Pedro Coutinho (VM Oracle)`. Clones: `~/meu-contexto`, `~/pessoal-radar-leiloes`.
 
 ## Serviços desligados (2026-11-19, economia de RAM)
 rpcbind (mascarado), PCP (pmcd, pmie, pmie_farm, pmlogger, pmlogger_farm e timers), libstoragemgmt,
@@ -76,5 +78,13 @@ gssproxy, dtprobed, atd. Mantidos: iscsid (segurança do boot na OCI), tuned, or
 
 ## Segredos na VM (nunca no repo)
 - `~/agentes-chat/.env` (600) — segredos do agentes.chat.
+- `~/.agentes-segredos/radar-site-senha` (600) — usuário/senha do site do Radar de Leilões.
+- `~/.agentes-segredos/radar-caddy.env` (600) — hash bcrypt da senha acima, lido pelo container `caddy`.
 - `~/.agentes-segredos/owner-senha` (600) — senha inicial do owner; **apagar depois de trocar a senha**.
 - `~/backups/agentes-chat-antigo-20261119T175843Z.tar.gz` (600) — backup da instalação antiga.
+
+## Radar de Leilões na VM (2026-11-21)
+- Código/banco/site: `~/pessoal-radar-leiloes` (SQLite em `data/radar.db`). Timer `radar-leiloes.timer` (07:30 UTC).
+- Site `https://radar.147-15-67-178.sslip.io` pelo Caddy do agentes.chat (override; ver `pessoal/radar/leiloes/README.md`).
+- **Ao atualizar o agentes.chat:** o override contém uma cópia do Caddyfile oficial; sincronize com o do
+  `docker-compose.yml` novo, senão as mudanças oficiais de Caddy ficam mascaradas.
