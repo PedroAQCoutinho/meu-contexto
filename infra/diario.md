@@ -113,6 +113,12 @@ Somente leitura (`docker ps/volume/network/images/stats/inspect`, `systemctl`, `
 - Revogar chaves de IA/conectores cadastradas no app antigo, se houve.
 - Decidir se desliga o oracle-cloud-agent (≈230 MiB entre RAM e swap).
 - Backups do banco novo (perfil `backup` exige S3; alternativa: `pg_dump` em cron + cópia sem segredos).
-- Security List da OCI: conferir que só 22/80/443 estão abertas na entrada.
+- ~~Security List da OCI: conferir 22/80/443~~ — confirmado pelo Pedro em 2026-11-21.
 - Monitor externo de `/api/health` (alerta no Telegram, quando o Saci existir).
 - Fora desta tarefa: modelo de IA, bot do Telegram, coletores do Radar.
+
+## 2026-11-21 — Status das pendências (Pedro)
+- Feito: Security List só 22/80/443; custom instructions do ChatGPT atualizadas.
+- Depois (Pedro): trocar senha owner + apagar `~/.agentes-segredos/owner-senha`; remover runner antigo;
+  revogar chaves antigas; criar Projects no claude.ai; preencher UK Pact/Caatinga/TerraAnalytics; bancos.
+- Radar de leilões: tratado em chat próprio e repo próprio (`pessoal/radar/leiloes/`).

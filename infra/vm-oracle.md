@@ -19,7 +19,7 @@ https://147-15-67-178.sslip.io. Configuração em `agentes-chat/`.
 | Docker | 29.10.0; `opc` no grupo docker; logs limitados em `/etc/docker/daemon.json` (**confirmado**) |
 | Firewall da VM | firewalld, zona `public`: só `ssh`, `http`, `https` (dhcpv6-client removido em 2026-11-19; VM sem IPv6 global) |
 | Portas escutando | 22 (sshd), 80/443 (Caddy) públicas; 3000 (app) só em localhost. rpcbind e PCP desligados (**confirmado** 2026-11-19) |
-| Security List OCI | entrada TCP 22 existe (Pedro, console). Demais regras: *a verificar* |
+| Security List OCI | entrada só TCP 22/80/443 (**confirmado** pelo Pedro, 2026-11-21) |
 
 Acesso: `ssh -i ~/oracle/oracle-vm-1.key opc@147.15.67.178`
 
@@ -59,7 +59,7 @@ Achados que mudam o plano da fase 1:
 - [x] CPU / memória / disco (`nproc`, `free -h`, `df -h`)
 - [x] Docker instalado? Sim, 29.10.0, com containers ativos
 - [x] Portas abertas no firewall da VM
-- [ ] Security List da Oracle (regras além da TCP 22)
+- [x] Security List da Oracle: só 22/80/443 na entrada (confirmado pelo Pedro, 2026-11-21)
 - [x] O que são os containers em 80/443/3000? agentes.chat antigo (Codex) — removido em 2026-11-19
 - [x] Confirmar o shape: VM.Standard.E2.1.Micro
 
