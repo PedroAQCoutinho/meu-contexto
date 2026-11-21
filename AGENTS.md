@@ -15,13 +15,14 @@ repo; trabalhar numa cópia velha causa conflito e decisões erradas.
 
 ## Convenção de contexto: `<Instituição> - <Contratante/Contexto> - <Projeto>`
 Todo projeto tem **3 nomes**:
-1. **Instituição**: iGPP, TerraAnalytics ou outras que surgirem.
+1. **Instituição**: iGPP, TerraAnalytics, **Pessoal** ou outras que surgirem.
 2. **Contratante ou contexto** em que o projeto está inserido (financiador, programa, iniciativa).
 3. **Nome resumido** do projeto.
 
 Exemplos:
 - **iGPP - UK Pact - Caatinga** → `igpp/uk-pact/caatinga/`
 - **iGPP - Cartas da Terra - Who Owns** → `igpp/cartas-da-terra/who-owns/`
+- **Pessoal - Radar - Leilões** → `pessoal/radar/leiloes/`
 
 Regras:
 - Cada nível tem um arquivo: `contexto.md` na instituição, `README.md` no contratante/contexto
