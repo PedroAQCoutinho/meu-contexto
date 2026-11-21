@@ -1,4 +1,4 @@
-# 2026-11-21 — Aprimoramento v0.2: painel lateral, mais fontes, filtros de leiloeiro e motivo
+# 2026-11-21 — Aprimoramento v0.2: painel lateral, mais fontes, filtros de leiloeiro, motivo e metragem
 
 - **Agente:** Claude Code (máquina local com SSH para a VM Oracle)
 - **Origem:** chat "Pessoal - Radar - Leilões" no claude.ai, 2026-11-21
@@ -99,8 +99,20 @@ Classifique cada imóvel num `motivo`, guardando a **evidência** (o trecho do t
 
 Escreva testes com exemplos reais para cada categoria. O motivo vira filtro com seleção múltipla e aparece no painel.
 
+## 5. Metragem como filtro (slider)
+- **Banco:** guarde separadamente `area_util` (útil ou privativa), `area_total` e `area_terreno`, em m² como número, mais `area_origem`, o rótulo e o trecho de onde saiu.
+  - Para o slider, use a área útil; sem ela, a total; para terreno ou lote, a de terreno. Mostre no painel qual área foi usada.
+- **Normalização:**
+  - aceite `m2`, `m²`, `ms2`, `mts`, `ha` (× 10.000) e `alqueire` (só com unidade explícita);
+  - trate separador de milhar e decimal no padrão brasileiro.
+  - Valor implausível vira `NULL` com aviso no log. Exemplos: casa com mais de 100.000 m² (no protótipo apareceu "174.900,02 m²" para uma casa de 174,90 m²) ou apartamento com menos de 10 m².
+- **Página:**
+  - slider duplo (mínimo e máximo) em escala logarítmica, porque vai de vaga de garagem (~10 m²) a glebas;
+  - imóveis sem área entram só quando o slider está na faixa inteira;
+  - mostre também o **R$/m²** no painel e permita ordenar a lista por ele.
+
 ## Página: filtros finais
-- **Filtros:** município (centraliza o mapa), slider de valor, nível de risco, leiloeiro, motivo e modalidade.
+- **Filtros:** município (centraliza o mapa), slider de valor, slider de metragem, nível de risco, leiloeiro, motivo e modalidade.
 - **Contadores e URL:** mostre a contagem por filtro e mantenha os filtros na URL, para eu poder salvar uma busca.
 - **Desempenho:** com milhares de pontos, use agrupamento de marcadores (Leaflet.markercluster via cdnjs) e carregue o `data.json` compactado.
 - **Mapa:** não mexa na `Referrer-Policy` (`strict-origin-when-cross-origin` foi o que destravou os tiles do OSM).
@@ -119,7 +131,7 @@ Mantenha a regra v1. Corrija só o peso de "ocupação não informada" para 0,5 
 
 ## Critério de pronto
 - Pelo menos as 5 fontes prioritárias testadas; as acessíveis, ativas.
-- Página com painel lateral e os novos filtros.
+- Página com painel lateral e os novos filtros (leiloeiro, motivo e metragem).
 - Testes de motivo e de risco passando.
 - Timer seguindo.
 - Diário e README atualizados, com commit+push.
