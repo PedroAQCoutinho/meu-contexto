@@ -178,3 +178,6 @@ Somente leitura (`docker ps/volume/network/images/stats/inspect`, `systemctl`, `
   site 401/200, health 200. RAM depois: 632 MiB, swap 374 MiB.
 - **Pendências:** Pedro criar o repo vazio (o push sai sozinho na próxima coleta); pegar a senha do site; versionar o protótipo.
   Detalhes em `pessoal/radar/leiloes/README.md`.
+
+## 2026-11-21 — Pessoal - Radar - Leilões: repo no GitHub
+- Pedro criou `PedroAQCoutinho/pessoal-radar-leiloes` (vazio). Na VM: `git push -u origin main` → `main` em 1ea03f1 (3 commits). O `ExecStartPost` do timer continua publicando commits locais.

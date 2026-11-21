@@ -10,7 +10,7 @@ Radar de leilões de imóveis.
 
 ## Links
 - **Site:** https://radar.147-15-67-178.sslip.io (HTTPS + basic auth; usuário `pedro`, senha só na VM em `~/.agentes-segredos/radar-site-senha`)
-- **Repo:** https://github.com/PedroAQCoutinho/pessoal-radar-leiloes (privado) — **ainda precisa ser criado pelo Pedro** (ver Pendências). Código já está na VM em `~/pessoal-radar-leiloes`.
+- **Repo:** https://github.com/PedroAQCoutinho/pessoal-radar-leiloes (privado), criado pelo Pedro em 2026-11-21; clone de trabalho na VM em `~/pessoal-radar-leiloes`.
 - Execução: `infra/diario.md`, entradas de 2026-11-21 "Pessoal - Radar - Leilões".
 
 ## Fontes testadas (2026-11-21, requisição comum com UA de navegador)
@@ -58,10 +58,7 @@ Radar de leilões de imóveis.
   reboot testado (tudo voltou sozinho). Página com HTTPS + basic auth (401 sem senha, 200 com senha).
 
 ## Pendências (Pedro)
-1. **Criar o repo privado** `PedroAQCoutinho/pessoal-radar-leiloes` no GitHub, **vazio** (sem README/licença), com a
-   descrição: `Radar de leilões de imóveis — site: https://radar.147-15-67-178.sslip.io`. Não precisa fazer mais
-   nada: a próxima coleta diária faz o `git push` sozinha. Para enviar na hora:
-   `ssh oracle 'cd ~/pessoal-radar-leiloes && git push -u origin main'`. O README do repo já tem o link do site.
+1. ~~Criar o repo privado no GitHub~~ — feito em 2026-11-21, push do `main` (1ea03f1). Conferir se a descrição do repo tem o link do site.
 2. Pegar a senha do site: `ssh oracle cat ~/.agentes-segredos/radar-site-senha`. Guardar no gerenciador de senhas.
 3. Versionar o protótipo (`radar-leiloes-santos.html`, `santos.json`) no repo: a página atual foi
    **reconstruída pela especificação**, porque o protótipo não estava na máquina. Ajustar o visual depois.
