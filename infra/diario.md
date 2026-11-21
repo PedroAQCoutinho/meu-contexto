@@ -122,3 +122,13 @@ Somente leitura (`docker ps/volume/network/images/stats/inspect`, `systemctl`, `
 - Depois (Pedro): trocar senha owner + apagar `~/.agentes-segredos/owner-senha`; remover runner antigo;
   revogar chaves antigas; criar Projects no claude.ai; preencher UK Pact/Caatinga/TerraAnalytics; bancos.
 - Radar de leilões: tratado em chat próprio e repo próprio (`pessoal/radar/leiloes/`).
+
+## 2026-11-21 — Pessoal - Radar - Leilões: Etapa 0 (teste de acesso)
+- Na VM: `curl` com User-Agent de Chrome em `https://www.leilaoimovel.com.br/leilao-de-imovel/santos-sp` → **403**,
+  página "Just a moment..." (desafio JS do Cloudflare). Sem links de imóvel na resposta, então a página `/imovel/...` não foi testada.
+- Teste com `curl_cffi` (impersonate) **não rodou**: o classificador de permissões do Claude Code bloqueou a ação
+  por ser contorno de proteção anti-bot. Nada foi instalado na VM.
+- Estado da VM no teste: RAM 668/945 MiB usada (277 MiB disponível), swap 541 MiB; Python 3.9.25; sem `pdftotext`;
+  Caddy só em container (`agentes-chat-caddy-1`, caddy:2.11.7-alpine).
+- Protótipo (`radar-leiloes-santos.html`, `santos.json`) não encontrado na máquina local.
+- **Pendência:** Pedro escolher a estratégia de coleta (ver `pessoal/radar/leiloes/README.md`). Repo e coletor não foram criados.

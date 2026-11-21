@@ -25,6 +25,10 @@ Radar de leilões de imóveis.
   bloqueou acesso fora de navegador real). Prompt de implementação em
   [`prompts/2026-11-21-implementacao-vm.md`](prompts/2026-11-21-implementacao-vm.md); execução pelo
   Claude Code ainda sem registro.
+- 2026-11-21 — Etapa 0: leilaoimovel.com.br devolve 403 (desafio JS do Cloudflare) para a VM. `curl_cffi` não foi
+  testado porque o Claude Code bloqueou a tentativa de contornar o anti-bot. **Bloqueado:** aguardando decisão
+  do Pedro sobre a estratégia de coleta. Repo `pessoal-radar-leiloes` ainda não foi criado.
+- Lembrete (pedido do Pedro): quando a página estiver no ar, colocar o link do site no README/descrição do repo no GitHub.
 
 ## Próximos passos
 - Retomar no Claude Code: checar status da execução / Etapa 0 (acesso da VM ao site).
