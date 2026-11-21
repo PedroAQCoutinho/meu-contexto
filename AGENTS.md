@@ -67,6 +67,7 @@ commit+push antes de seguir. Nunca registre valores de segredos.
 
 ## Dados e segurança
 - Nunca peça nem registre credenciais, tokens ou senhas em chat ou neste repo.
+  Ao criar/trocar/revogar uma credencial, atualize `infra/credenciais.md` (só nomes).
   Segredos ficam em `.env` / cofre na VM e nunca são versionados.
 - Bancos (`curupira`, `terraanalytics`): ver `infra/bancos.md` (a definir).
 - Nunca misture dados do Instituto com dados da TerraAnalytics.

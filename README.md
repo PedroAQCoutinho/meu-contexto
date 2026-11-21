@@ -19,6 +19,7 @@ pessoal/radar/leiloes/    Pessoal - Radar - Leilões
 infra/bancos.md           acesso aos bancos (a definir)
 infra/cerebro-oracle.md   arquitetura dos agentes 24/7 na VM Oracle
 infra/vm-oracle.md        dados de acesso da VM (sem segredos)
+infra/credenciais.md      inventário de credenciais (só nomes)
 infra/fase1-plano.md      plano de instalação da fase 1
 ```
 
