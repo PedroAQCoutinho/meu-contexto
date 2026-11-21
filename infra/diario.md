@@ -181,3 +181,8 @@ Somente leitura (`docker ps/volume/network/images/stats/inspect`, `systemctl`, `
 
 ## 2026-11-21 — Pessoal - Radar - Leilões: repo no GitHub
 - Pedro criou `PedroAQCoutinho/pessoal-radar-leiloes` (vazio). Na VM: `git push -u origin main` → `main` em 1ea03f1 (3 commits). O `ExecStartPost` do timer continua publicando commits locais.
+
+## 2026-11-21 — Pessoal - Radar - Leilões: mapa sem tiles (403 do OSM)
+- Sintoma (print do Pedro): tiles "Access blocked — not following the tile usage policy". Causa: `Referrer-Policy no-referrer` que eu pus no `radar.caddy`; o OSM exige Referer.
+- Correção: `strict-origin-when-cross-origin` (envia só a origem). Override do Caddy passou a montar o **diretório** `deploy/` em `/etc/caddy/radar/` (backup do override antes em `~/backups/`). `docker compose up -d caddy`.
+- Teste: header novo presente; tile com Referer do site → 200. Commits 1f16aef e seguinte no repo do radar.
