@@ -132,3 +132,20 @@ Somente leitura (`docker ps/volume/network/images/stats/inspect`, `systemctl`, `
   Caddy só em container (`agentes-chat-caddy-1`, caddy:2.11.7-alpine).
 - Protótipo (`radar-leiloes-santos.html`, `santos.json`) não encontrado na máquina local.
 - **Pendência:** Pedro escolher a estratégia de coleta (ver `pessoal/radar/leiloes/README.md`). Repo e coletor não foram criados.
+
+## 2026-11-21 — Pessoal - Radar - Leilões: escolha de fonte e incidente de RAM
+**Decisão (autonomia dada pelo Pedro ao sair):** fonte inicial = **Mega Leilões** (megaleiloes.com.br).
+- Testes de acesso (UA de navegador, requisição comum, sem contorno):
+  leilaoimovel 403 Cloudflare (VM e local); Caixa CSV → CAPTCHA Radware/perfdrive (VM e local);
+  Mega Leilões 200 na VM, robots.txt `Allow: /` (só `/login` proibido). Santos/SP tem **5** imóveis lá hoje.
+  Outros com 200 sem anti-bot aparente (candidatos a próximas fontes): Zukerman, Frazão, Lance Judicial,
+  Biasi, D1 Lance, Santander Imóveis, Emgea. Com anti-bot: Superbid, Sold, Resale, Leilões Judiciais, Sodré Santoro (403).
+- VM: GitHub por SSH configurado (`~/.ssh/config`, known_hosts com fingerprint ED25519
+  `SHA256:+DiY3wvvV6TuJJhbpZisF/zLDA0zPMSvHdkr4UvCOqU`, igual ao publicado); `ssh -T` autenticou como PedroAQCoutinho.
+- Código escrito e testado na máquina local (scratchpad, Python 3.13): coleta de 2 imóveis reais ok,
+  geocode Nominatim ok, edital com texto, **matrículas da Mega são escaneadas (PDF sem texto)**. 9 testes de risco ok.
+- **Incidente:** `sudo dnf install -y git-core poppler-utils` na VM levou a VM a swap pesado; ~10:20 BRT
+  o SSH parou de responder (porta 22 aceita TCP, banner não vem) e o agentes.chat (`/api/health`) ficou fora.
+  Sem OCI CLI local, não consegui reiniciar. Aguardando recuperação; se não voltar, **reboot pelo console OCI**.
+  Lição: na E2.1.Micro, `dnf` precisa de `--setopt=install_weak_deps=False`, cache já pronto, e de preferência
+  parar o agentes.chat antes (ou trocar para a A1 Flex).
