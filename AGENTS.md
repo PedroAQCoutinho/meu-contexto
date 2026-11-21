@@ -90,6 +90,17 @@ commit+push antes de seguir. Nunca registre valores de segredos.
   resumos em Markdown e links.
 - Ao fim de uma sessão relevante, atualize a seção "Status" e "Decisões".
 
+## Registro de prompts
+- Registre só prompts de **implementação/etapa** (ex.: o que foi colado no Claude Code para
+  construir algo) e prompts **reutilizáveis** (templates). Conversa do dia a dia não entra.
+- Prompt de projeto: `<projeto>/prompts/AAAA-MM-DD-<assunto>.md`. Prompt genérico, que serve
+  a vários projetos: `_prompts/`.
+- No topo de cada arquivo: **Agente** (para quem foi), **Status/Resultado** e link para o trecho
+  de `infra/diario.md` ou do README do projeto. Atualize o resultado quando a execução terminar.
+- O prompt é registro histórico, **não** fonte de verdade: decisões vigentes ficam no README do
+  projeto ("Decisões"). Se divergirem, vale o README.
+- Nunca inclua segredos, credenciais ou dados das instituições num prompt registrado.
+
 ---
 ## Resumo para custom instructions (ChatGPT)
 Sou pesquisador sênior no iGPP (instituto de pesquisa) e consultor da TerraAnalytics.

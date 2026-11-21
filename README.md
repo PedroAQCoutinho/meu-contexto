@@ -7,12 +7,15 @@ AGENTS.md                 instruções gerais (fonte única)
 CLAUDE.md                 aponta para AGENTS.md
 autonomia.md              quando perguntar vs. agir (aprendido com o tempo)
 _modelo-projeto/          modelo para novo projeto
+_prompts/                 prompts reutilizáveis entre projetos (regra em AGENTS.md → Registro de prompts)
+<projeto>/prompts/        prompts de implementação de cada projeto (AAAA-MM-DD-assunto.md)
 igpp/contexto.md          contexto comum do iGPP
 igpp/uk-pact/caatinga/    iGPP - UK Pact - Caatinga
 igpp/cartas-da-terra/     iniciativa Cartas da Terra
   who-owns/               iGPP - Cartas da Terra - Who Owns
 terraanalytics/           contexto da TerraAnalytics + um diretório por projeto
 pessoal/radar/leiloes/    Pessoal - Radar - Leilões
+  prompts/                prompts de implementação do radar
 infra/bancos.md           acesso aos bancos (a definir)
 infra/cerebro-oracle.md   arquitetura dos agentes 24/7 na VM Oracle
 infra/vm-oracle.md        dados de acesso da VM (sem segredos)
